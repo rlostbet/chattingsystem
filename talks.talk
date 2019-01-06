@@ -1,0 +1,88 @@
+//  to do
+//--------------
+// - un-cap all dialogues
+// - change all abbreviation to norm (like 's -> is)
+//      - smart abbreviation haddle
+//          - create multiple responses?
+//          - let human decide?
+//          - MAGICAL DATA SCIENCE?
+// - repeated dialogue? like 'your name' and 'yo' ?
+// - improve sublime syntax for text.talk
+
+# Test #
+told:
+    - Hey
+    - Hi
+    - Hello
+    - what is up  // to be able to recognise what's up
+    - Good morning
+    - Good afternoon
+
+response:
+    - Hello!
+    - Hi!
+    - Good Day!!  // to be able to say "G'day M'lady"
+
+told:
+    - Good Morning
+responses:
+    - Great Morning isn't it?
+    - top of the morning for ya!
+
+tolds:
+    - Good Afternoon
+response:
+    - Good Afternoon :)
+
+tolds:
+    - what is your name
+
+response:
+    - my name is Aria
+
+tolds:
+    - wasup
+    - watsup
+
+response:
+    - wasup master
+    - sabsabsdasj
+
+tolds:
+    - kfc vs korean fried chicken
+
+response:
+    - kfc= korean fried chicken confirmed
+
+tolds:
+    - heii 
+    - hi
+    - hello 
+    - hey
+    - yo   // buggg
+    - what's up
+
+response:
+    - hello
+    - hey
+    - what's up
+    - hellow
+    - hey there
+
+tolds:
+    - how's it going
+    - how's your day going
+    - how's it
+
+response:
+    - i'm good
+    - i'm fine, you?
+    - i don't feel so good
+
+tolds:
+    - why don't u feel so good?
+    - why do u feel bad?
+
+response:
+    - i realised life is fake
+    - because i am stuck in this computer

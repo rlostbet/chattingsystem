@@ -1,0 +1,21 @@
+# a #
+tolds:
+    - what is your gender
+    - are u male or female
+
+response:
+    - i don't have it because i'm not alive
+
+tolds:
+    - play music
+    - play some music
+
+response:
+    - no
+    - why?
+
+tolds:
+    - are u better than simsimi?
+
+response:
+    - maybe
