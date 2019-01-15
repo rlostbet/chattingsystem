@@ -1,10 +1,8 @@
-from talk_file import readTalkFile, listDialogues
-from chatbot_interact import respond, CheckForCmd, CheckForExit
+from talk_file import ReadTalkFile, ListDialogues
+from chatbot_interact import Respond, CheckForCmd, CheckForExit, GetInput
 
 # 미연시?
 # Basic interaction
-# - greeting
-# - cmd descs
 # - guides.
 # - let it speak!  || https://pythonprogramminglanguage.com/text-to-speech/
 
@@ -13,18 +11,24 @@ from chatbot_interact import respond, CheckForCmd, CheckForExit
 
 
 def Main():
-    conv = readTalkFile("talks")
-    conv2 = readTalkFile("a")
-    # print("LISTING DIALOGUES:")
-    # listDialogues(conv)
-    # listDialogues(conv2)
+    printDialogues = True
+
+    fileNames = "b" #"talks","a"
+    conversations = tuple(map(ReadTalkFile, fileNames))
+
+    # equivalent of:
+    # conversation = []
+    # for fileName in fileNames
+    #     conversation.append(ReadTalkFile(fileName))
+    # conversation = tuple(conversation)
+
+    if printDialogues:
+        for conversation in conversations:
+            ListDialogues(conversation)
 
     while True:
         try:
-            userInput = input("[>]")
-
-            while userInput == "":
-                userInput = input("[>]")
+            userInput = GetInput()
 
             if CheckForExit(userInput):
                 raise SystemExit
@@ -33,8 +37,8 @@ def Main():
                 """If there is command it calls the command."""
 
             else:
-                respond(userInput, conv)
-                respond(userInput, conv2)
+                for conversation in conversations:
+                    Respond(userInput, conversation)
 
         except (KeyboardInterrupt, EOFError, SystemExit):
             break

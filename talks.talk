@@ -1,12 +1,13 @@
 //  to do
 //--------------
-// - un-cap all dialogues
+// - no need of indentation.
+// - using somewhat equivalent of f-string and regex
 // - change all abbreviation to norm (like 's -> is)
 //      - smart abbreviation haddle
 //          - create multiple responses?
 //          - let human decide?
 //          - MAGICAL DATA SCIENCE?
-// - repeated dialogue? like 'your name' and 'yo' ?
+// - repeated dialogue? like 'your name' and 'yo' ? --> matche by word
 // - improve sublime syntax for text.talk
 
 # Test #
@@ -32,7 +33,7 @@ responses:
 tolds:
     - Good Afternoon
 response:
-    - Good Afternoon :)
+    - Good Afternoon //:)
 
 tolds:
     - what is your name
@@ -75,14 +76,20 @@ tolds:
     - how's it
 
 response:
-    - i'm good
-    - i'm fine, you?
-    - i don't feel so good
+    - I'm good
+    - I'm fine, you?
+    - I don't feel so good
 
 tolds:
-    - why don't u feel so good?
-    - why do u feel bad?
+    - why don't you feel so good?
+    - why do you feel bad?
 
 response:
-    - i realised life is fake
-    - because i am stuck in this computer
+    - I realised life is fake
+    - because I am stuck in this computer
+
+//told:
+//    - >:(
+//
+//response:
+//    - (laughs)

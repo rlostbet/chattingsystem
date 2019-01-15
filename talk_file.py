@@ -2,53 +2,78 @@ from dataclasses import dataclass
 
 import re
 
-# to do:
-# - white space --> "what is up    "
-# - .lower
-# - compile
-# - improve the line loop
-#   something like continue yk
+# fun idea!
+# improve battleships
+# and use some famous 3rd party apps
+# to show how many times I won, lose
+# and save data
+# varaiety of ships
 
+# to do:
+# - multi reading
+# - what about !!! ???? all that?
+#       - duplicate?
+#          like if there's 'a?'-> 'a' & 'a?'
+# - special option to capitalise
+# - remember user's information
+#
+# - compile ?
+# - improve the loop
+#       - continue
+#       - The extra looking variables you know
+#
+# - repeated dialogue? like 'your name' and 'yo' ?
+# - using somewhat equivalent of f-string and regex
 
 @dataclass
 class Conversation:
-    """near equivalent of the following code
-
-    class Conversation:
+    archive = dict()
 
     def __init__(self, heading, dialogues):
         self.heading = heading
-        self.dialogues = list(dialogues)
-    """
-    heading: str
-    dialogues: list
+        self.dialogues = dialogues
+        Conversation.archive[self.heading] = self
+
+    def __repr__(self):
+        reprText = f"Conversation({self.heading}, {self.dialogues}) "
+
+        i = 200
+
+        if len(reprText) > i:
+            reprText = reprText[:i-3] + "..."
+
+        return  reprText
 
 
 @dataclass
 class Dialogue:
-    """near equivalent of the following code
-
-    class Dialogue:
-
-    def __init__(self, toldPhrases, responses):
-        self.tolds = list(toldPhrases)  # whatever
-        self.responses = list(responses)
-    """
     tolds: list
     responses: list
 
 
-HEADING_PATTERN = r"( )*#+ .+ #+$( )*"  # --> "# sometext #"
+def abbreviation():
+    """
+    // - change all abbreviation to norm (like 's -> is)
+    //      - smart abbreviation haddle
+    //          - create multiple responses?
+    //          - let human decide?
+    //          - MAGICAL DATA SCIENCE?
+    """
 
-TOLD_PATTERN = r"told(s)?:( )*"
-RESPONSE_PATTERN = r"response(s)?:( )*"
 
-ELEMENT_PATTERN = r"    - "
+HEADING_PATTERN = r"#+ .+ #"  # --> "# sometext #"
 
-# ELEMENT_PATTERN = r"    -( )?"
+TOLD_PATTERN = r"told(s)?:"
+RESPONSE_PATTERN = r"response(s)?:"
+
+ELEMENT_PATTERN = r".*-( )?"
 
 
-def readTalkFile(fileName):
+def HandleRegexChars():
+    """Something like () -> \\(\\)"""
+
+
+def ReadTalkFile(fileName):
     collectTolds = None
     collectResponses = None
 
@@ -67,7 +92,7 @@ def readTalkFile(fileName):
         lines = f.readlines()
 
     for line in lines:
-        line = line.strip("\n")
+        line = line.strip().lower()
 
         # creating new response
         if toldsCollected and responsesCollected:
@@ -94,8 +119,9 @@ def readTalkFile(fileName):
 
         else:
             if collectTolds:
-                if re.match(ELEMENT_PATTERN, line):
-                    dialogue.tolds.append(line[6:])
+                elementMatch = re.match(ELEMENT_PATTERN, line)
+                if elementMatch:
+                    dialogue.tolds.append(line[elementMatch.end():])
 
                 else:
                     collectTolds = False
@@ -107,8 +133,9 @@ def readTalkFile(fileName):
 
         else:
             if collectResponses:
-                if re.match(ELEMENT_PATTERN, line):
-                    dialogue.responses.append(line[6:])
+                elementMatch = re.match(ELEMENT_PATTERN, line)
+                if elementMatch:
+                    dialogue.responses.append(line[elementMatch.end():])
 
                 else:
                     collectResponses = False
@@ -117,7 +144,7 @@ def readTalkFile(fileName):
     return Conversation(heading, dialogues)
 
 
-def listDialogues(aConversatoin):
+def ListDialogues(aConversatoin):
     dialogues = aConversatoin.dialogues
     print(len(dialogues), "dialogues found.")
 
@@ -129,5 +156,25 @@ def listDialogues(aConversatoin):
         print()
 
 
+def MergeConversations(heading, *conversations):
+    # __add__ ??
+    # Merge++:
+    # - no duplicate
+    # - name
+    # - MergeTo
+    mergedConv = Conversation(heading, [])
+
+    for conv in conversations:
+        if isinstance(conv, str):
+            conv = Conversation.archive[conv]
+
+        mergedConv.dialogues.extend(conv.dialogues)
+
+
 if __name__ == '__main__':
-    listDialogues(readTalkFile("talks"))
+    a = ReadTalkFile("talks")
+    b = ReadTalkFile("talks")
+    assert(a == b)
+    ListDialogues(c)
+
+    MergeConversations

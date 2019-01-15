@@ -5,16 +5,37 @@ import os
 from myTool import Line
 
 
-def respond(userInput, Conversation, botName="BOT"):
+def GetInput(inputIndicator="[>]"):
+    # options:
+    # - lower / leave cap
+    # - replace symbols or not
+    userInput = input(inputIndicator)
+
+    while userInput == "":
+        userInput = input(inputIndicator)
+
+    # string handling       # for readability sdfu
+    userInput = userInput.lower()
+    userInput = re.sub(r"!+", "!", userInput)
+    userInput = re.sub(r"\?+", "?", userInput)
+    userInput = re.sub(r"~+", "~", userInput)
+    #userInput = re.sub(r"[?!&^%$]+{3,}", ">:(", userInput)  # heheh
+
+    return userInput
+
+
+def Respond(userInput, Conversation, botName="BOT"):
 
     for dialogue in Conversation.dialogues:
-        tolds = tuple(dialogue.tolds)
-        responses = tuple(dialogue.responses)
+        for told in dialogue.tolds:
+            # a = ""
+            # for word in told:
+            #     # to prevent 'your' being recognised as 'yo'
+            #     # :(((
+            #     a += r"{}".format({r"\b" + word + r"\b"})
 
-        for told in tolds:
             if re.search(told, userInput):
-                # print(told)
-                print(f"{botName}: {random.choice(responses)}")
+                print(f"{botName}: {random.choice(dialogue.responses)}")
 
 
 def CheckForExit(userInput):
